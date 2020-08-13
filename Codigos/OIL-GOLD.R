@@ -10,12 +10,20 @@ CL7=Quandl("CHRIS/CME_CL7", api_key="zxdSEzha_e_UwhD8Pgdw",type="xts")
 CL3=Quandl("CHRIS/CME_CL3", api_key="zxdSEzha_e_UwhD8Pgdw",type="xts") 
 
 
+Basis1=WTI-CL1$Last
+Basis3=WTI-CL3$Last
+Basis7=WTI-CL7$Last
 
 plot(tail(WTI,250), col="red", main= "Spot vs Futures")
 lines(tail(CL1$Last,250), col="blue")
 lines(tail(CL7$Last,250), col ="green")
 lines(tail(CL3$Last,250), col ="orange")
 legend("bottom",legend=c("WTI","CL1","CL3","CL7"), col=c("red","blue","orange","green")) 
+
+
+plot(tail(Basis1,250),col="red", main= "Basis CL")
+lines(tail(Basis3,250), col="blue")
+lines(tail(Basis7,250), col ="green")
 
 
 # Oro 
