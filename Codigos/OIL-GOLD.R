@@ -9,6 +9,15 @@ CL1=Quandl("CHRIS/CME_CL1", api_key="zxdSEzha_e_UwhD8Pgdw",type="xts")
 CL7=Quandl("CHRIS/CME_CL7", api_key="zxdSEzha_e_UwhD8Pgdw",type="xts") 
 CL3=Quandl("CHRIS/CME_CL3", api_key="zxdSEzha_e_UwhD8Pgdw",type="xts") 
 
+Petroleo=cbind(WTI, CL1$Last, CL3$Last, CL7$Last)
+colnames(Petroleo)=c("WTI","CL1","CL3","CL7")
+
+Petroleo=tail(Petroleo,550)
+
+library(xlsx)
+write.xlsx(Petroleo, "Petroleo.xlsx") 
+
+
 
 Basis1=WTI-CL1$Last
 Basis3=WTI-CL3$Last
