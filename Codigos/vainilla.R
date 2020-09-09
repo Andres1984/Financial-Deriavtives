@@ -7,8 +7,8 @@ K=450 #Precio ejercicio
 cv=NULL
 pv=NULL  
 for (i in 1:length(S)){
-  cv[i]=max(S[i]-K,-1.74)
-  pv[i]=max(K-S[i],-1.74)
+  cv[i]=max(S[i]-K-1.74,0)
+  pv[i]=max(K-S[i]-1.74,0)
 }
 
 plot(S,cv,type="l", col="orange", main="Opciones",xlab="Precio de la acción", ylab="V(S,t)")
