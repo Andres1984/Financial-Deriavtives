@@ -58,4 +58,36 @@ points(S,sput,col="blue",pch=16)
 abline(h=0)
 
 
+###Opción en largo call
+
+opcall<-function(S,K){
+  
+  ## S es un vector de precios spot
+  ## K Es el precio strike
+  call=NULL
+  for(i in 1:length(S)){
+    
+    call[i]=max(S[i]- K,0)
+    
+  }
+  return(call)
+  
+}
+
+## Opcion en largo Put
+opput<-function(S,K){
+  
+  ## S es un vector de precios spot
+  ## K Es el precio strike
+  put=NULL
+  for(i in 1:length(S)){
+    
+    put[i]=max(K-S[i],0)
+    
+  }
+  return(put)
+  
+}
+
+
 
