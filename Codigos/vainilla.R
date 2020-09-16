@@ -14,3 +14,48 @@ for (i in 1:length(S)){
 plot(S,cv,type="l", col="orange", main="Opciones",xlab="Precio de la acción", ylab="V(S,t)")
 lines(S,pv,col="blue")
 abline(h=0)
+
+
+###Opción en Corto call
+
+sopcall<-function(S,K){
+  
+  ## S es un vector de precios spot
+  ## K Es el precio strike
+  call=NULL
+  for(i in 1:length(S)){
+    
+    call[i]=-max(S[i]- K,0)
+    
+  }
+  return(call)
+  
+}
+
+## Opcion en corto Put
+sopput<-function(S,K){
+  
+  ## S es un vector de precios spot
+  ## K Es el precio strike
+  put=NULL
+  for(i in 1:length(S)){
+    
+    put[i]=-max(K-S[i],0)
+    
+  }
+  return(put)
+  
+}
+
+
+scall=sopcall(S,K)
+sput=sopput(S,K)
+
+plot(S,cv,type="l", col="orange", main="Opciones",xlab="Precio de la acción", ylab="V(S,t)",ylim=c(-150,150))
+lines(S,pv,col="blue")
+points(S,scall,col="orange", pch=16)
+points(S,sput,col="blue",pch=16)
+abline(h=0)
+
+
+
