@@ -27,5 +27,21 @@ jpm=Delt(JPM$JPM.Close)[-1]
 rend=cbind(tsla,xom,jpm) ## Los juntamos en un dataframe
 colnames(rend)=simbolos
 
+mu=colMeans(rend)*20## Rendimientos del activo
+varcova=var(rend)*20## Matriz Var covar
+
+### Calcualr una forntera eficiente## Prefunta inicial Compramos call o put
+## Vamos a usar IntroCompFinR
+portafolio=efficient.frontier(mu, varcova,nport = 20,alpha.min = -0.1,alpha.max = 1.1) 
+
+plot(portafolio$sd,portafolio$er, pch=16, col="blue", cex=2, main="Frontera Eficiente",xlab = "Risk",ylab = "Return")
+
+vol=portafolio$sd[8]
+re=portafolio$er[8]
+weights=as.data.frame(portafolio$weights[8,])## Positivo Call Negativo Put
+rownames(weights)=simbolos
+colnames(weights)="weights"
+
+
 
 
