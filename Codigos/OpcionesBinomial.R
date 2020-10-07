@@ -95,6 +95,7 @@ binomplot(STXOM, KXOM, volTXOM, rs, tt, d,nstep,american = TRUE, putopt=TRUE,crr
 ## CalculR
 b=binomopt(STXOM, KXOM, volTXOM, rs, tt, d, nstep, american=TRUE, putopt=TRUE, crr = TRUE,returntrees=TRUE, returnparams=TRUE)
 b$price
+b$params
 b1=binomopt(STXOM, KXOM1, volTXOM, rs, tt, d, nstep, american=TRUE, putopt=TRUE, crr = TRUE,returntrees=TRUE, returnparams=TRUE)
 b1$price
 
