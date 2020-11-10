@@ -322,3 +322,88 @@ CallOption3DPlot( S = seq(from = 75, to = 125, length = 40),
                   r = 0.1, 
                   v = 0.4)
 
+
+### Graficos de las griegas
+
+
+plot3DGreeks <- function (type, func, S, X, t, r, v, theta = 30, 
+                          phi = 20, expand = 0.75, col = "cyan", ltheta = 120, shade = 0.75, 
+                          ticktype = "detailed", cex = 0.6, 
+                          main = paste("Black-Scholes Option Sensitivity for ", func, sep="") , ...)
+{  
+  greeks3D = function(S, t, X, r, v) 
+  { 
+    if (func == "delta")
+    {
+      delta(type, S, X, t, r, v)
+    }
+    else if (func == "gamma")
+    {
+      gamma(type, S, X, t, r, v)
+    }
+    else if (func == "vega")
+    {
+      vega(type, S, X, t, r, v)
+    }
+    else if (func == "theta")
+    {
+      theta(type, S, X, t, r, v)
+    }
+    else if (func == "rho")
+    {
+      rho(type, S, X, t, r, v)
+    }
+  }
+  
+  # Sensitivities:
+  Greeks = outer(S, t, FUN = greeks3D, X, r, v)
+  
+  # Perspective Plot:
+  persp(x=S, y=t, z=Greeks, xlab="S", ylab="Time", zlab="Griega", 
+        theta=theta, phi=phi, expand=expand, col=col, ltheta=ltheta,
+        shade=shade, ticktype=ticktype, cex=cex, main=main, ...) 
+  
+  # Return Value:
+  invisible(list(S = S, t = t, Sensitivity = Greeks))
+}
+
+
+## Grafica de una Delta
+
+
+
+S=80:120
+K=100
+r=0
+T=1
+sig=0.01
+
+calldelta=delta(0,S,K,T,r,sig)
+calldelta1=delta(0,S,K,T,r,0.1)
+calldelta2=delta(0,S,K,10,r,0.01)
+calldelta3=delta(0,S,K,T,0.05,0.01)
+
+plot(S,calldelta, type="l",col="blue")
+lines(S,calldelta1, col="red")
+lines(S,calldelta2, col="green")
+lines(S,calldelta3, col="orange")
+abline(v=100*exp(-0.05))
+abline(v=100)
+
+par(mfrow = c(1, 2), cex = 1/3)
+types <- c(0, 1)
+S <- seq(from = 75, to = 125, length = 25) 
+t <- seq(from = 1/52, to = 1, length = 25)
+for (i in types)
+{
+  plot3DGreeks(i, "vega", S = S, X = 100, t = t, r = 0.1, v = 0.40)
+}
+
+
+### Grafica Gamma
+
+
+gammacall=gamma(0,S,K,T,r,sig)
+par(mfrow=c(2,1))
+plot(S,gammacall, type="l",col="blue")
+plot(S,calldelta, type="l",col="blue")
