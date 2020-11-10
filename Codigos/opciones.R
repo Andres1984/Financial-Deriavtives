@@ -327,7 +327,7 @@ CallOption3DPlot( S = seq(from = 75, to = 125, length = 40),
 
 
 plot3DGreeks <- function (type, func, S, X, t, r, v, theta = 30, 
-                          phi = 20, expand = 0.75, col = "cyan", ltheta = 120, shade = 0.75, 
+                          phi = 40, expand = 0.75, col = "cyan", ltheta = 120, shade = 0.75, 
                           ticktype = "detailed", cex = 0.6, 
                           main = paste("Black-Scholes Option Sensitivity for ", func, sep="") , ...)
 {  
@@ -374,9 +374,9 @@ plot3DGreeks <- function (type, func, S, X, t, r, v, theta = 30,
 
 S=80:120
 K=100
-r=0
+r=0.05
 T=1
-sig=0.01
+sig=0.5
 
 calldelta=delta(0,S,K,T,r,sig)
 calldelta1=delta(0,S,K,T,r,0.1)
@@ -396,7 +396,7 @@ S <- seq(from = 75, to = 125, length = 25)
 t <- seq(from = 1/52, to = 1, length = 25)
 for (i in types)
 {
-  plot3DGreeks(i, "vega", S = S, X = 100, t = t, r = 0.1, v = 0.40)
+  plot3DGreeks(i, "theta", S = S, X = 100, t = t, r = 0.1, v = 0.40)
 }
 
 
@@ -404,6 +404,31 @@ for (i in types)
 
 
 gammacall=gamma(0,S,K,T,r,sig)
+gammacall1=gamma(0,S,K,T,r,0.1)
+gammacall2=gamma(0,S,K,10,r,0.01)
+gammacall3=gamma(0,S,K,T,0.05,0.01)
+
 par(mfrow=c(2,1))
 plot(S,gammacall, type="l",col="blue")
+lines(S,gammacall1, col="red")
+lines(S,gammacall2, col="green")
+lines(S,gammacall3, col="orange")
+abline(v=100*exp(-0.05))
+abline(v=100)
+
 plot(S,calldelta, type="l",col="blue")
+lines(S,calldelta1, col="red")
+lines(S,calldelta2, col="green")
+lines(S,calldelta3, col="orange")
+abline(v=100*exp(-0.05))
+abline(v=100)
+
+
+### Grafica theta
+
+
+thetacall=theta(0,S,K,T,r,sig)
+thetacall1=theta(0,S,K,0.2,r,sig)
+t <- seq(from = 1/52, to = 1, length = 41)
+plot(S,thetacall, type="l",col="blue")
+lines(S,thetacall1, col="red")
