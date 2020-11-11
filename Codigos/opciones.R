@@ -390,7 +390,7 @@ lines(S,calldelta3, col="orange")
 abline(v=100*exp(-0.05))
 abline(v=100)
 
-par(mfrow = c(1, 2), cex = 1/3)
+
 types <- c(0, 1)
 S <- seq(from = 75, to = 125, length = 25) 
 t <- seq(from = 1/52, to = 1, length = 25)
@@ -432,3 +432,6 @@ thetacall1=theta(0,S,K,0.2,r,sig)
 t <- seq(from = 1/52, to = 1, length = 41)
 plot(S,thetacall, type="l",col="blue")
 lines(S,thetacall1, col="red")
+
+
+
